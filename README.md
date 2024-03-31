@@ -3,7 +3,7 @@
 ### Requisitos Funcionais:
 
 - [x] Deve ser possível a criação de contas de professores.
-- [ ] Deve ser possível a criação de contas de alunos.
+- [x] Deve ser possível a criação de contas de alunos.
 - [ ] Deve ser possível realizar a autenticação de alunos.
 - [ ] Deve ser possível realizar a autenticação de professores.
 - [ ] Implementação do sistema de salvamento de progresso dos alunos no servidor.

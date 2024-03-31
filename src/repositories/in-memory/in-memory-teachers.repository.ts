@@ -14,6 +14,7 @@ export class InMemoryTeacherRepository implements ITeacherRepository {
   }: TeacherPayload): Promise<Teacher> {
     const teacher: Teacher = {
       email,
+      session_id: null,
       password_hash,
       teacher_name,
       id: randomUUID(),
@@ -25,6 +26,12 @@ export class InMemoryTeacherRepository implements ITeacherRepository {
 
   async findByUniqueEmail({ email }: { email: string }) {
     const teacher = this.items.find((item) => item.email === email)
+
+    return teacher || null
+  }
+
+  async findByUniqueID({ id }: { id: string }) {
+    const teacher = this.items.find((item) => item.id === id)
 
     return teacher || null
   }

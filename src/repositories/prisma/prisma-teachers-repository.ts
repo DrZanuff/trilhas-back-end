@@ -31,4 +31,14 @@ export class PrismaTeacherRepository implements ITeacherRepository {
 
     return teacher || null
   }
+
+  async findByUniqueID({ id }: { id: string }) {
+    const teacher = await prisma.teacher.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    return teacher || null
+  }
 }

@@ -20,6 +20,7 @@ export class InMemoryStudentRepository implements IStudentRepository {
       save_volume_music: 0,
       save_volume_sfx: 0,
       id: randomUUID(),
+      session_id: null,
     }
     this.items.push(student)
 
