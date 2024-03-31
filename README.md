@@ -2,23 +2,24 @@
 
 ### Requisitos Funcionais:
 
-- [ ] Deve ser possível a criação de contas de professores.
+- [x] Deve ser possível a criação de contas de professores.
 - [ ] Deve ser possível a criação de contas de alunos.
-- [ ] Deve ser possível realizar a autenticação de alunos e professores.
+- [ ] Deve ser possível realizar a autenticação de alunos.
+- [ ] Deve ser possível realizar a autenticação de professores.
 - [ ] Implementação do sistema de salvamento de progresso dos alunos no servidor.
-- [ ] Desenvolvimento inicial da interface de criação de contas para professores.
-- [ ] Criação do portal de login para professores.
 
 ### Requisitos Não-Funcionais:
 
-- [ ] A implementação do back-end será feita com Node.js e Fastify.
-- [ ] A configuração do banco de dados será com PostgreSQL e Prisma.
-- [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL
+- [x] A implementação do back-end será feita com Node.js e Fastify.
+- [x] A configuração do banco de dados será com PostgreSQL e Prisma.
+- [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL
 - [ ] A interface da conta do professor será um front-end com React+Vite.
 - [ ] A senha do usuário precisa estar criptografada
 - [ ] Deve ser possível criar uma sessão (SessionID) para cada login, dessa forma será possível identificar o usuário em futuras requisições após logado.
 - [ ] Para um aluno, uma sessão só ficará ativa enquanto o jogo estiver em execução.
 - [ ] Para um professor, o cookie de sessão deve ter uma validade de 1 mês
+- [ ] Desenvolvimento inicial da interface de criação de contas para professores.
+- [ ] Criação do portal de login para professores.
 
 ### Regras de Negócio:
 
@@ -26,9 +27,6 @@
 - [ ] Um aluno pode logar na sua conta sem inserir um código de professor.
 - [ ] Um aluno pode logar na sua conta inserindo um código de professor.
 - [ ] Não deve ser possível um aluno se autenticar se ele informar um código de turma inválido (inexistente)
-- [ ] Um professor pode criar uma conta e turmas, e receber um código para compartilhar com os alunos.
-- [ ] Cada turma de um professor deve possuir um código do professor único de 4 dígitos
-- [ ] O progresso dos alunos deve ser associado corretamente às turmas e aos professores.
 
 Data de Entrega:
 Final de Abril.
@@ -38,23 +36,28 @@ Final de Abril.
 ### Requisitos Funcionais:
 
 - [ ] Desenvolvimento do dashboard administrativo para professores. Será feito a implementação do sistema de acompanhamento de progresso dos alunos para professores.
+- [ ] O professor deve ser capaz de criar uma turma
+- [ ] O professor deve ser capaz de deletar uma turma
 - [ ] Deve ser possível listar todas as turmas
 - [ ] Deve ser possível exibir apenas uma turma
 - [ ] Deve ser possível listar todos os alunos de uma turma
 - [ ] Deve ser ṕossivel exibir apenas uma aluno de uma turma
 - [ ] Deve ser possível a criação e gerenciamento de turmas.
-  O professor poderá criar e deletar turmas.
 - [ ] O professor pode terminar uma sessão no dashboard (deslogar)
 
 ### Requisitos Não-Funcionais:
 
 - [ ] Deve haver a Integração do front-end do dashboard com os dados do back-end.
+- [ ] Deve haver um interface para criar e deletar turmas
 
 ### Regras de Negócio:
 
+- [ ] Um professor pode criar uma conta e turmas, e receber um código para compartilhar com os alunos.
 - [ ] Cada professor pode gerenciar múltiplas turmas.
 - [ ] As turmas são exclusivas de cada professor.
 - [ ] Um aluno pode estar a associado a várias turmas
+- [ ] Cada turma de um professor deve possuir um código do professor único de 4 dígitos
+- [ ] O progresso dos alunos deve ser associado corretamente às turmas e aos professores.
 
 Data de Entrega:
 Final de Maio.
@@ -185,3 +188,11 @@ O inventário do aluno no jogo determina os itens disponíveis para uso durante 
   }
 }
 ```
+
+## Instruções
+
+Após fazer modificações no arquivo prisma.schema, rode para gerar a tipagem
+`npx prisma generate`
+
+Para rodar migrations no prisma, rode
+`npx prisma migrate dev`

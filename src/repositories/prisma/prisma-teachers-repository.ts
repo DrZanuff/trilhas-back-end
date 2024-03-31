@@ -21,4 +21,14 @@ export class PrismaTeacherRepository implements ITeacherRepository {
 
     return teacher
   }
+
+  async findByUniqueEmail({ email }: { email: string }) {
+    const teacher = await prisma.teacher.findUnique({
+      where: {
+        email,
+      },
+    })
+
+    return teacher || null
+  }
 }

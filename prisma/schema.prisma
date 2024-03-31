@@ -38,9 +38,9 @@ model Course {
 model Student {
   id                String   @id @default(uuid())
   student_name      String
-  save_volume       Int
-  save_volume_music Int
-  save_volume_sfx   Int
+  save_volume       Int?     @default(0)
+  save_volume_music Int?     @default(0)
+  save_volume_sfx   Int?     @default(0)
   email             String   @unique
   password_hash     String
   saves             Save[]

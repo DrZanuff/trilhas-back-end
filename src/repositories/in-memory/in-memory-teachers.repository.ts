@@ -22,4 +22,10 @@ export class InMemoryTeacherRepository implements ITeacherRepository {
 
     return teacher
   }
+
+  async findByUniqueEmail({ email }: { email: string }) {
+    const teacher = this.items.find((item) => item.email === email)
+
+    return teacher || null
+  }
 }

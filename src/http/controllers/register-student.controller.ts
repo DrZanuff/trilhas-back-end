@@ -2,9 +2,9 @@ import { ERROR_LIST } from '@/constants/erros'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import get from 'lodash/get'
-import { makeRegisterTeacherUserCase } from '@/use-cases/register-teacher/make-register-teacher-case'
+import { makeRegisterStudentUserCase } from '@/use-cases/register-student/make-register-student-case'
 
-export async function registerTeacherController(
+export async function registerStudentController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
@@ -17,12 +17,12 @@ export async function registerTeacherController(
   const { name, email, password } = registerBodySchema.parse(request.body)
 
   try {
-    const registerTeacher = makeRegisterTeacherUserCase()
+    const registerStudent = makeRegisterStudentUserCase()
 
-    await registerTeacher.execute({ name, email, password })
+    await registerStudent.execute({ name, email, password })
   } catch (err) {
     const errorMessage = get(err, 'message')
-    if (errorMessage === ERROR_LIST.REGISTER_TEACHER.EMAIL_ALREADY_EXISTS) {
+    if (errorMessage === ERROR_LIST.REGISTER_STUDENT.EMAIL_ALREADY_EXISTS) {
       return reply.status(409).send({ errorMessage })
     } else {
       // TODO: Here we should log to an external tool like DataDog/NewRelic/Sentry

@@ -1,4 +1,5 @@
 // import { ERROR_LIST } from '@/constants/erros'
+import { ERROR_LIST } from '@/constants/erros'
 import { ITeacherRepository } from '@/repositories/teachers.repository.types'
 import { hash } from 'bcryptjs'
 
@@ -14,7 +15,13 @@ export class RegisterTeacherUseCase {
   async execute({ email, name, password }: RegisterTeacherProps) {
     const password_hash = await hash(password, 6)
 
-    // TODO - implement findByUniqueEmail so we can't create a user with same email
+    const teacherWithSameEmail = await this.teacherRepository.findByUniqueEmail(
+      { email }
+    )
+
+    if (teacherWithSameEmail) {
+      throw new Error(ERROR_LIST.REGISTER_TEACHER.EMAIL_ALREADY_EXISTS)
+    }
 
     const teacher = await this.teacherRepository.create({
       email,
