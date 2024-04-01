@@ -2,7 +2,7 @@ import { ERROR_LIST } from '@/constants/erros'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import get from 'lodash/get'
-import { makeAuthenticateTeacherUserCase } from '@/use-cases/authenticate-teacher/make-authenticate-teacher-case'
+import { makeAuthenticateTeacherUserCase } from '@/use-cases/authenticate-teacher/make-authenticate-teacher-use-case'
 
 export async function AuthenticateTeacherController(
   request: FastifyRequest,

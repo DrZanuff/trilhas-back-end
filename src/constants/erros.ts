@@ -1,4 +1,7 @@
 export const ERROR_LIST = {
+  LOGOUT_TEACHER: {
+    NOT_FOUND: 'Could not find a teacher with this id',
+  },
   REGISTER_TEACHER: {
     EMAIL_ALREADY_EXISTS: 'This teacher email is already being used.',
   },

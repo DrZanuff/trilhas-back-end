@@ -2,7 +2,7 @@ import { ERROR_LIST } from '@/constants/erros'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import get from 'lodash/get'
-import { makeRegisterTeacherUserCase } from '@/use-cases/register-teacher/make-register-teacher-case'
+import { makeRegisterTeacherUserCase } from '@/use-cases/register-teacher/make-register-teacher-use-case'
 
 export async function registerTeacherController(
   request: FastifyRequest,

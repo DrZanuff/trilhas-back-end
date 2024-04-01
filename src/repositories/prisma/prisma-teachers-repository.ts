@@ -55,4 +55,15 @@ export class PrismaTeacherRepository implements ITeacherRepository {
 
     return teacher || null
   }
+
+  async endSessionID({ id }: { id: string }) {
+    await prisma.teacher.update({
+      where: {
+        id,
+      },
+      data: {
+        session_id: null,
+      },
+    })
+  }
 }
