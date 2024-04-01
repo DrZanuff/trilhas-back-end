@@ -1,9 +1,11 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
 import {
   registerTeacherController,
-  registerStudentController,
   AuthenticateTeacherController,
   LogoutTeacherController,
+  registerStudentController,
+  AuthenticateStudentController,
+  LogoutStudentController,
 } from '@/http/controllers'
 import { checkSessionIdExists } from '@/midlewares/check-session-id-exists'
 
@@ -21,4 +23,10 @@ export async function appRoutes(app: FastifyInstance) {
   )
 
   app.post('/student/register', registerStudentController)
+  app.post('/student/authenticate', AuthenticateStudentController)
+  app.post(
+    '/student/logout',
+    { preHandler: [checkSessionIdExists] },
+    LogoutStudentController
+  )
 }
