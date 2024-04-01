@@ -1,1 +1,1 @@
-export { RegisterTeacherUseCase } from './register-student-use-case'
+export { RegisterStudentUseCase } from './register-student-use-case'

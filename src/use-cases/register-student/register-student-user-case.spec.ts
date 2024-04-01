@@ -1,5 +1,5 @@
 import { expect, describe, it, beforeEach } from 'vitest'
-import { RegisterStudentUseCase } from './register-student-use-case'
+import { RegisterStudentUseCase } from '@/use-cases/register-student'
 import { InMemoryStudentRepository } from '@/repositories/in-memory/in-memory-student.repository'
 import { ERROR_LIST } from '@/constants/erros'
 // import { compare } from 'bcryptjs'

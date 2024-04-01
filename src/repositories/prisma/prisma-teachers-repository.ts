@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { ITeacherRepository } from '@/repositories/teachers.repository.types'
+import { randomUUID } from 'node:crypto'
 
 export class PrismaTeacherRepository implements ITeacherRepository {
   async create({
@@ -36,6 +37,19 @@ export class PrismaTeacherRepository implements ITeacherRepository {
     const teacher = await prisma.teacher.findUnique({
       where: {
         id,
+      },
+    })
+
+    return teacher || null
+  }
+
+  async updateSessionID({ id }: { id: string }) {
+    const teacher = await prisma.teacher.update({
+      where: {
+        id,
+      },
+      data: {
+        session_id: randomUUID(),
       },
     })
 

@@ -35,4 +35,23 @@ export class InMemoryTeacherRepository implements ITeacherRepository {
 
     return teacher || null
   }
+
+  async updateSessionID({ id }: { id: string }) {
+    const teacherIndex = this.items.findIndex((item) => item.id === id)
+
+    const teacher = this.items[teacherIndex]
+
+    if (teacherIndex < 0) {
+      return null
+    }
+
+    const teacherWithNewSessionID: Teacher = {
+      ...teacher,
+      session_id: randomUUID(),
+    }
+
+    this.items.splice(teacherIndex, 1, teacherWithNewSessionID)
+
+    return teacherWithNewSessionID
+  }
 }
