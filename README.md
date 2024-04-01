@@ -5,8 +5,8 @@
 - [x] Deve ser possível a criação de contas de professores.
 - [x] Deve ser possível a criação de contas de alunos.
 - [ ] Deve ser possível realizar a autenticação de alunos.
-- [ ] Deve ser possível realizar a autenticação de professores.
-- [ ] Implementação do sistema de salvamento de progresso dos alunos no servidor.
+- [x] Deve ser possível realizar a autenticação de professores.
+- [x] Deve ser possível sair de uma sessão como professor.
 
 ### Requisitos Não-Funcionais:
 
@@ -14,10 +14,10 @@
 - [x] A configuração do banco de dados será com PostgreSQL e Prisma.
 - [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL
 - [ ] A interface da conta do professor será um front-end com React+Vite.
-- [ ] A senha do usuário precisa estar criptografada
+- [x] A senha do usuário precisa estar criptografada
 - [ ] Deve ser possível criar uma sessão (SessionID) para cada login, dessa forma será possível identificar o usuário em futuras requisições após logado.
 - [ ] Para um aluno, uma sessão só ficará ativa enquanto o jogo estiver em execução.
-- [ ] Para um professor, o cookie de sessão deve ter uma validade de 1 mês
+- [x] Para um professor, o cookie de sessão deve ter uma validade de 1 mês
 - [ ] Desenvolvimento inicial da interface de criação de contas para professores.
 - [ ] Criação do portal de login para professores.
 
@@ -44,10 +44,12 @@ Final de Abril.
 - [ ] Deve ser ṕossivel exibir apenas uma aluno de uma turma
 - [ ] Deve ser possível a criação e gerenciamento de turmas.
 - [ ] O professor pode terminar uma sessão no dashboard (deslogar)
+- [ ] Implementação do sistema de salvamento de progresso dos alunos no servidor.
 
 ### Requisitos Não-Funcionais:
 
 - [ ] Deve haver a Integração do front-end do dashboard com os dados do back-end.
+- [ ] Deve haver a Integração do front-end do jogo com os dados do back-end.
 - [ ] Deve haver um interface para criar e deletar turmas
 
 ### Regras de Negócio:
@@ -146,7 +148,9 @@ O inventário do aluno no jogo determina os itens disponíveis para uso durante 
     "preferences": {
       "saveVolume": "number",
       "saveVolumeMusic": "number",
-      "saveVolumeSFX": "number"
+      "saveVolumeSFX": "number",
+      "mouse_icon_scale": "number",
+      "locale": "string"
     },
     "analytics": {
       "device": "window | android",
