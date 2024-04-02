@@ -37,51 +37,27 @@ model Course {
 }
 
 model Student {
-  id                String   @id @default(uuid())
-  session_id        String?
-  student_name      String
-  save_volume       Float?   @default(100.0)
-  save_volume_music Float?   @default(100.0)
-  save_volume_sfx   Float?   @default(100.0)
-  mouse_icon_scale  Float?   @default(0.2)
-  locale            String?  @default("pt_BR")
-  email             String   @unique
-  password_hash     String
-  saves             Save[]
-  courses           Course[]
+  id            String   @id @default(uuid())
+  session_id    String?
+  student_name  String
+  user_cfg      Bytes?
+  email         String   @unique
+  password_hash String
+  saves         Save[]
+  courses       Course[]
 
   @@map("students")
 }
 
 model Save {
-  id                              String  @id @default(uuid())
-  name_char                       String
-  level_player                    Int
-  xp_actual                       Int
-  time_played                     Int
-  actual_quest                    String
-  actual_secondary_quest          Int
-  weapon_bow                      Boolean @default(false)
-  weapon_sword                    Boolean @default(false)
-  weapon_rod                      Boolean @default(false)
-  skill_laser_arrow               Boolean @default(false)
-  skill_rain_arrow                Boolean @default(false)
-  skill_triple_arrow              Boolean @default(false)
-  skill_180_sword                 Boolean @default(false)
-  skill_360_sword                 Boolean @default(false)
-  consumable_energy_orb           Boolean @default(false)
-  consumable_shield_orb           Boolean @default(false)
-  consumable_supreme_orb          Boolean @default(false)
-  consumable_life_orb             Boolean @default(false)
-  consumable_energy_orb_quantity  Int     @default(0)
-  consumable_shield_orb_quantity  Int     @default(0)
-  consumable_supreme_orb_quantity Int     @default(0)
-  consumable_life_orb_quantity    Int     @default(0)
-  chip_recharge                   Boolean @default(false)
-  chip_connection                 Boolean @default(false)
-  course_id                       String?
-  student                         Student @relation(fields: [student_id], references: [id])
-  student_id                      String
+  id           String  @id @default(uuid())
+  level_player Int
+  time_played  Int
+  actual_quest String
+  game_save    Bytes?
+  course_id    String?
+  student      Student @relation(fields: [student_id], references: [id])
+  student_id   String
 
   @@map("saves")
 }
