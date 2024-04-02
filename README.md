@@ -142,16 +142,8 @@ O inventário do aluno no jogo determina os itens disponíveis para uso durante 
     "studentID": "string",
     "className": "string",
     "classID": "string",
-    "nameChar": "string",
     "levelPlayer": "number",
-    "xpActual": "number",
-    "preferences": {
-      "saveVolume": "number",
-      "saveVolumeMusic": "number",
-      "saveVolumeSFX": "number",
-      "mouse_icon_scale": "number",
-      "locale": "string"
-    },
+    "user_cfg": "byte",
     "analytics": {
       "device": "window | android",
       "timePlayed": "number"
@@ -159,35 +151,7 @@ O inventário do aluno no jogo determina os itens disponíveis para uso durante 
     "progress": {
       "isProgressControlled": "boolean",
       "actualQuest": "Quest_01 | Quest_02 | Quest_03 | Quest_04 | Quest_05 | Quest_06",
-      "actualSecondaryQuest": "number",
-      "inventory": {
-        "weapons": {
-          "bow": { "enabled": "boolean" },
-          "sword": { "enabled": "boolean" },
-          "rod": { "enabled": "boolean" }
-        },
-        "skills": {
-          "bow": {
-            "laser_arrow": { "enabled": "boolean" },
-            "rain_arrow": { "enabled": "boolean" },
-            "triple_arrow": { "enabled": "boolean" }
-          },
-          "sword": {
-            "180_sword": { "enabled": "boolean" },
-            "360_sword": { "enabled": "boolean" }
-          }
-        },
-        "consumables": {
-          "energy_orb": { "enabled": "boolean", "quantity": "number" },
-          "shield_orb": { "enabled": "boolean", "quantity": "number" },
-          "supreme_orb": { "enabled": "boolean", "quantity": "number" },
-          "life_orb": { "enabled": "boolean", "quantity": "number" }
-        },
-        "chips": {
-          "recharge_chip": { "enabled": "boolean" },
-          "connection_chip": { "enabled": "boolean" }
-        }
-      }
+      "game_save": "byte"
     }
   }
 }
