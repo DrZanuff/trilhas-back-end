@@ -50,14 +50,28 @@ model Student {
 }
 
 model Save {
-  id           String  @id @default(uuid())
-  level_player Int
-  time_played  Int
-  actual_quest String
-  game_save    Bytes?
-  course_id    String?
-  student      Student @relation(fields: [student_id], references: [id])
-  student_id   String
+  id                String  @id @default(uuid())
+  player_level      Int
+  total_time_played Int
+  quests            Quest[]
+  game_save         Bytes?
+  course_id         String?
+  student           Student @relation(fields: [student_id], references: [id])
+  student_id        String
 
   @@map("saves")
+}
+
+model Quest {
+  id              String    @id @default(uuid())
+  quest_id        Int       @unique
+  quest_name      String
+  started_at      DateTime? @default(now())
+  completed_at    DateTime?
+  time_played     Int?      @default(0)
+  completion_rate Int?      @default(0)
+  Save            Save?     @relation(fields: [saveId], references: [id])
+  saveId          String?
+
+  @@map("quests")
 }

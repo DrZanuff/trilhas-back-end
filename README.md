@@ -15,7 +15,7 @@
 - [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL
 - [ ] A interface da conta do professor será um front-end com React+Vite.
 - [x] A senha do usuário precisa estar criptografada
-- [ ] Deve ser possível criar uma sessão (SessionID) para cada login, dessa forma será possível identificar o usuário em futuras requisições após logado.
+- [x] Deve ser possível criar uma sessão (SessionID) para cada login, dessa forma será possível identificar o usuário em futuras requisições após logado.
 - [ ] Para um aluno, uma sessão só ficará ativa enquanto o jogo estiver em execução.
 - [x] Para um professor, o cookie de sessão deve ter uma validade de 1 mês
 - [ ] Desenvolvimento inicial da interface de criação de contas para professores.
@@ -93,67 +93,103 @@ Final de Junho.
 
 #### Root
 
-`studentName`: O nome do aluno.
-`studentID`:O identificador único do aluno.
-`className`: O nome da turma à qual o aluno está associado.
-`classID`: O identificador único da turma.
-`nameChar`:O nome do personagem do aluno no jogo.
-`levelPlayer`: O nível atual do jogador.
-`xpActual`: A quantidade de experiência atual do jogador.
-
-#### Preferences
-
-As preferências de configuração do jogo do aluno.
-`saveVolume`: O volume de salvamento do jogo.
-`saveVolumeMusic`: O volume da música do jogo.
-`saveVolumeSFX`: O volume dos efeitos sonoros do jogo.
+`student_name`: O nome do aluno.
+`student_id`:O identificador único do aluno.
+`course_name`: O nome da turma à qual o aluno está associado.
+`course_id`: O identificador único da turma.
+`player_level`: O nível atual do jogador.
+`user_cfg`: Arquivo binário com as opções do jogador para usro interno da engine do jogo.
+`game_save`: O binário com o save do aluno, contém informações internas para a engine do
+jogo consumir e utilizar.
 
 #### Analytics
 
-Os dados analíticos do jogador.
+Os dados analíticos do jogador. Esta informação só é enviada para o professor com fins de métricas
+e não para o jogo.
 `device`: O dispositivo utilizado pelo jogador (Windows ou Android).
-`timePlayed`: O tempo total de jogo do jogador.
+`total_time_played`: O tempo total de jogo do jogador.
 
 #### Progress
 
 O progresso do aluno no jogo.
-`isProgressControlled`: A variável "isProgressControlled" controla a progressão dos alunos no jogo. Quando esta opção estiver ativada no back-end, o jogo restringe a liberdade dos alunos para avançarem livremente, permitindo o progresso somente quando o professor liberar a aula. No front-end, se o professor habilitar essa opção para uma turma através de um checkbox, uma interface será exibida com as aulas disponíveis de 1 a N (sendo N o número total de aulas/missões). O professor pode selecionar uma aula e, se houver alunos que não tenham completado a missão, um aviso será exibido indicando isso. O professor poderá então optar por prosseguir mesmo assim, e assim irá sobrescrever o valor atual da missão (actualQuest) com a aula selecionada, porém não irá apagar os itens adquiridos pelos alunos. As aulas só serão liberadas sequencialmente pelo professor, uma por vez.
 
-No jogo, se esta variável estiver ativada, é crucial garantir que todos os itens necessários estejam disponíveis para o aluno de acordo com a missão/quest selecionada, permitindo assim uma experiência de jogo adequada e coerente com a progressão controlada definida pelo professor. Por exemplo, se o professor selecionar Quest_03, o jogo irá liberar e salvar automaticamente os itens que o jogador teria inicialmente ao iniciar a Quest_03, sem sobrescrever outros itens que ele conquistou (por exemplo, itens coletados na Quest_04).
+`quests`: As quests que o aluno já completou ou está fazendo, contém métricas sobre a quest
+como tempo de jogo na quest e se completou ou não.
 
-`actualQuest`: Representa a missão atual em que o aluno está. Os valores possíveis correspondem aos nomes das missões usadas internamente no jogo, seguindo o padrão de nomenclatura Quest_01, Quest_02, Quest_03, …Quest_N, onde N representa o número total de missões disponíveis no jogo.
+### Contratos (Formato JSON)
 
-`actualSecondaryQuest`: Indica o número da missão secundária atual. As missões secundárias são organizadas em uma array indexada, começando a partir do índice 0.
+Para um aluno se Autenticar ele deve passar o seguinte payload
 
-#### Inventory
+```json
+{
+  "email": "string",
+  "password": "string",
+  "code": "string | null",
+  "device": "windows | android" // Optional
+}
+```
 
-O inventário do aluno no jogo determina os itens disponíveis para uso durante a partida. Se um item estiver disponível, o valor de "enabled" será definido como verdadeiro (true). No caso de itens consumíveis, será fornecida também a informação sobre a quantidade disponível. Essas informações serão utilizadas pelo jogo para garantir que o jogador inicie com acesso aos itens conforme configurado no inventário.
-`weapons`: As armas disponíveis para o jogador.
-`skills`: As habilidades disponíveis para o jogador.
-`consumables`: Os itens consumíveis disponíveis para o jogador.
-`chips`: Os chips disponíveis para o jogador.
+Após um aluno se autenticar ou registrar no jogo ele receberá esta informação do servidor
 
-### Dados de um aluno (Formato JSON)
+```json
+{
+  "session_id": "string",
+  "student_name": "string",
+  "student_id": "string",
+  "course_name": "string | null",
+  "course_id": "string | null",
+  "user_cfg": "byte",
+  "game_save": "byte"
+}
+```
+
+Ao listar um aluno no dashboard, essa será a informação recebida
 
 ```json
 {
   "student": {
-    "studentName": "string",
-    "studentID": "string",
-    "className": "string",
-    "classID": "string",
-    "levelPlayer": "number",
-    "user_cfg": "byte",
+    "student_name": "string",
+    "student_id": "string",
+    "course_name": "string",
+    "course_id": "string",
+    "player_level": "number",
     "analytics": {
-      "device": "window | android",
-      "timePlayed": "number"
-    },
-    "progress": {
-      "isProgressControlled": "boolean",
-      "actualQuest": "Quest_01 | Quest_02 | Quest_03 | Quest_04 | Quest_05 | Quest_06",
-      "game_save": "byte"
+      "device": "windows | android",
+      "total_time_played": "number",
+      "quests": [
+        {
+          "quest_name": "Quest_01 | Quest_02 | Quest_03 | Quest_04 | Quest_05 | Quest_06",
+          "quest_id": "string",
+          "started_at": "string | null",
+          "completed_at": "string | null",
+          "time_played": "number",
+          "completion_rate": "number"
+        }
+      ]
     }
   }
+}
+```
+
+Para atualizar um save, o jogo deve passar o seguinte payload:
+
+```json
+{
+  "student_id": "string",
+  "session_id": "string",
+  "course_id": "string | null",
+  "user_cfg": "byte | null",
+  "game_save": "byte | null",
+  // Optional
+  "quests": [
+    {
+      "quest_id": "string",
+      "started_at": "string | null",
+      "completed_at": "string | null",
+      "time_played": "number | null",
+      "completion_rate": "number | null"
+    }
+  ]
 }
 ```
 
